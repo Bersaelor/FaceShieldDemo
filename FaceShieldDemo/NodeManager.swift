@@ -12,6 +12,13 @@ import SceneKit
 class NodeManager: NSObject {
     
     let scene = SCNScene(named: "art.scnassets/shield.scn")!
+    
+    var chosenMaterial = Material.blinnPlexi {
+        didSet { updateShieldMaterial() }
+    }
+    var chosenOpacity: CGFloat = 0.2 {
+        didSet { updateShieldMaterial() }
+    }
 
     override init() {
         let device: MTLDevice! = MTLCreateSystemDefaultDevice()
@@ -27,9 +34,21 @@ class NodeManager: NSObject {
         sceneView.scene = scene
         
         sceneView.delegate = self
+        
+        metalClips.forEach { (node) in
+            node.geometry?.firstMaterial?.set(material: .steel, opacity: 1.0)
+        }
+        
+        updateShieldMaterial()
     }
 
     // private
+    
+    private func updateShieldMaterial() {
+        guard let material = shield?.geometry?.firstMaterial else { return }
+        material.set(material: chosenMaterial, opacity: chosenOpacity)
+        material.transparent.contents = chosenOpacity
+    }
     
     private var faceNode: SCNNode? {
         didSet {
@@ -38,10 +57,16 @@ class NodeManager: NSObject {
         }
     }
     private lazy var mainNode: SCNNode? = {
-       return scene.rootNode.childNode(withName: "FaceShield", recursively: true)
+        return scene.rootNode.childNode(withName: "FaceShield", recursively: true)
     }()
     private lazy var shield: SCNNode? = {
-       return scene.rootNode.childNode(withName: "SHIELD", recursively: true)
+        return scene.rootNode.childNode(withName: "SHIELD", recursively: true)
+    }()
+    private lazy var metalClips: [SCNNode] = {
+        return [
+            scene.rootNode.childNode(withName: "METAL_RIGHT", recursively: true),
+            scene.rootNode.childNode(withName: "METAL_LEFT", recursively: true)
+            ].compactMap { $0 }
     }()
     private let faceOcclusionNode: SCNNode
     

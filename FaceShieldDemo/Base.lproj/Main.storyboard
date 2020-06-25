@@ -1,37 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="FaceShieldDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </arscnView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FPQ-kj-5cL">
+                                <rect key="frame" x="19" y="706" width="376" height="31"/>
+                                <connections>
+                                    <action selector="sliderChangedValue:" destination="BV1-FR-VrT" eventType="valueChanged" id="uS2-y6-Hk7"/>
+                                </connections>
+                            </slider>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUb-xM-4hG">
+                                <rect key="frame" x="0.0" y="746" width="414" height="150"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="krN-xP-dxI">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boG-GC-aXX">
+                                            <rect key="frame" x="0.0" y="15" width="414" height="120"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="120" id="bKH-SJ-JlV"/>
+                                            </constraints>
+                                            <connections>
+                                                <outlet property="dataSource" destination="BV1-FR-VrT" id="dj6-ay-U2b"/>
+                                                <outlet property="delegate" destination="BV1-FR-VrT" id="Uc2-20-JLQ"/>
+                                            </connections>
+                                        </pickerView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="boG-GC-aXX" firstAttribute="leading" secondItem="krN-xP-dxI" secondAttribute="leading" id="7iW-VB-SIF"/>
+                                        <constraint firstItem="boG-GC-aXX" firstAttribute="centerY" secondItem="krN-xP-dxI" secondAttribute="centerY" id="bqZ-NZ-Ujg"/>
+                                        <constraint firstItem="boG-GC-aXX" firstAttribute="centerX" secondItem="krN-xP-dxI" secondAttribute="centerX" id="mxr-om-ANv"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Fvc-Mj-kmq"/>
+                                </constraints>
+                                <blurEffect style="systemUltraThinMaterial"/>
+                            </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="CUb-xM-4hG" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="1v6-nK-wEd"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
+                            <constraint firstItem="FPQ-kj-5cL" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="21" id="MIW-oU-DCu"/>
+                            <constraint firstItem="CUb-xM-4hG" firstAttribute="bottom" secondItem="U0K-SW-4ec" secondAttribute="bottom" id="OeO-MF-u9J"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
+                            <constraint firstItem="CUb-xM-4hG" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="hXi-PV-LxC"/>
+                            <constraint firstItem="CUb-xM-4hG" firstAttribute="top" secondItem="FPQ-kj-5cL" secondAttribute="bottom" constant="10" id="ilV-KE-SdG"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="FPQ-kj-5cL" secondAttribute="trailing" constant="21" id="jbI-vz-jBy"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="materialPicker" destination="boG-GC-aXX" id="h5V-dI-myL"/>
+                        <outlet property="opacitySlider" destination="FPQ-kj-5cL" id="tPW-Ub-th7"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>

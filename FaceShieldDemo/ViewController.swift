@@ -13,6 +13,8 @@ import ARKit
 class ViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var opacitySlider: UISlider!
+    @IBOutlet weak var materialPicker: UIPickerView!
     
     let nodeManager = NodeManager()
     
@@ -28,6 +30,9 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
+        opacitySlider.value = Float(nodeManager.chosenOpacity)
+        
         // Create a session configuration
         let configuration = ARFaceTrackingConfiguration()
 
@@ -42,5 +47,33 @@ class ViewController: UIViewController {
         sceneView.session.pause()
     }
 
+    @IBAction func sliderChangedValue(_ sender: UISlider) {
+        nodeManager.chosenOpacity = CGFloat(sender.value)
+    }
+    
     var session: ARSession? { return sceneView?.session }
+}
+
+extension ViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Material.allCases.count
+    }
+}
+
+extension ViewController: UIPickerViewDelegate {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        didSelectRow row: Int,
+        inComponent component: Int
+    ) {
+        nodeManager.chosenMaterial = Material.allCases[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Material.allCases[row].rawValue
+    }
 }
