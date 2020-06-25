@@ -57,16 +57,16 @@ extension SCNMaterial {
         lightingModel = .physicallyBased
         metalness.contents = 1.0
         roughness.contents = 0.1
-        diffuse.contents = UIColor(hex: "c4c7c7")
+        diffuse.contents = UIColor(hex: "f1f1f9")
     }
 
     private func makeBlinnPlexi() {
         removeShaderModifiers()
         lightingModel = .blinn
         shininess = 99
-        specular.contents = UIColor(hex: "dddddd")
+        specular.contents = UIColor(hex: "eeeeee")
         fresnelExponent = 1.1
-        diffuse.contents = UIColor(hex: "787470")
+        diffuse.contents = UIColor(hex: "f1f1f9")
     }
 
     private func makeBlendAddPlexi() {
@@ -74,7 +74,7 @@ extension SCNMaterial {
         lightingModel = .physicallyBased
         metalness.contents = 1.0
         roughness.contents = 0.2
-        diffuse.contents = UIColor(hex: "787470")
+        diffuse.contents = UIColor(hex: "f1f1f9")
     }
     
     private func makeShadedPlain() {
@@ -82,7 +82,7 @@ extension SCNMaterial {
         lightingModel = .physicallyBased
         metalness.contents = 1.0
         roughness.contents = 0.2
-        diffuse.contents = UIColor(hex: "787470")
+        diffuse.contents = UIColor(hex: "f1f1f9")
     }
     
     private func makeReflectivePBR(opacity: CGFloat) {
@@ -90,7 +90,7 @@ extension SCNMaterial {
         lightingModel = .physicallyBased
         metalness.contents = 1.0
         roughness.contents = 0.2
-        diffuse.contents = UIColor(hex: "c4c7c7")
+        diffuse.contents = UIColor(hex: "f1f1f9")
     }
 
     private func removeShaderModifiers() {
