@@ -23,12 +23,21 @@ extension Material {
         default: return .alpha
         }
     }
+    
+    var reflectiveContent: String {
+        switch self {
+        case .blendAddPlexi, .blinnPlexi: return "art.scnassets/cloudy.jpg"
+        default: return ""
+        }
+    }
 }
 
 extension SCNMaterial {
     
     func set(material: Material, opacity: CGFloat) {
         blendMode = material.blendMode
+        reflective.contents = material.reflectiveContent
+        transparencyMode = .dualLayer
         switch material {
         case .steel:
             makeSteel()
@@ -89,7 +98,7 @@ extension SCNMaterial {
     }
     
     private func setReflectiveClearShader(minAlpha: CGFloat = 0.0) {
-        let reflection: Float = 0.1
+        let reflection: Float = 0.8
         let shaderModifier = """
 #pragma transparent
 #pragma body

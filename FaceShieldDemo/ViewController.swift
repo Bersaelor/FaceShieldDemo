@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         
         
         opacitySlider.value = Float(nodeManager.chosenOpacity)
+        materialPicker.selectRow(Material.allCases.firstIndex(of: nodeManager.chosenMaterial)!, inComponent: 0, animated: false)
         
         // Create a session configuration
         let configuration = ARFaceTrackingConfiguration()

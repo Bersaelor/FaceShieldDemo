@@ -13,10 +13,10 @@ class NodeManager: NSObject {
     
     let scene = SCNScene(named: "art.scnassets/shield.scn")!
     
-    var chosenMaterial = Material.blinnPlexi {
+    var chosenMaterial = Material.reflectivePBR {
         didSet { updateShieldMaterial() }
     }
-    var chosenOpacity: CGFloat = 0.2 {
+    var chosenOpacity: CGFloat = 0.8 {
         didSet { updateShieldMaterial() }
     }
 
@@ -34,6 +34,8 @@ class NodeManager: NSObject {
         sceneView.scene = scene
         
         sceneView.delegate = self
+        
+        sceneView.session.delegate = self
         
         metalClips.forEach { (node) in
             node.geometry?.firstMaterial?.set(material: .steel, opacity: 1.0)
@@ -73,6 +75,9 @@ class NodeManager: NSObject {
     }()
     private let faceOcclusionNode: SCNNode
     
+    private func updateLight(lightEstimate: ARLightEstimate) {
+        scene.lightingEnvironment.intensity = 2 * lightEstimate.ambientIntensity / 1000.0
+    }
 }
 
 extension NodeManager: ARSCNViewDelegate {
@@ -105,5 +110,16 @@ extension NodeManager: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         print("Removed \(node.name ?? "?") for anchor \(type(of: anchor))")
+    }
+}
+
+extension NodeManager: ARSessionDelegate {
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        guard let lightEstimate = session.currentFrame?.lightEstimate  else {
+            print("Failed to get lightEstimate")
+            return
+        }
+                
+        updateLight(lightEstimate: lightEstimate)
     }
 }
