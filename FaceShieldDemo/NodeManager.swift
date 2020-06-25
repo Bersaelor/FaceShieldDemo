@@ -40,6 +40,9 @@ class NodeManager: NSObject {
         }
         
         updateShieldMaterial()
+
+        let lightingEnvironment = sceneView.scene.lightingEnvironment
+        lightingEnvironment.contents = "art.scnassets/cloudy.jpg"
     }
 
     // private
