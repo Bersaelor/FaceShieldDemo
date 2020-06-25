@@ -16,7 +16,7 @@ class NodeManager: NSObject {
     var chosenMaterial = Material.reflectivePBR {
         didSet { updateShieldMaterial() }
     }
-    var chosenOpacity: CGFloat = 0.8 {
+    var chosenOpacity: CGFloat = 0.85 {
         didSet { updateShieldMaterial() }
     }
 

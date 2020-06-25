@@ -86,7 +86,7 @@ extension SCNMaterial {
     }
     
     private func makeReflectivePBR(opacity: CGFloat) {
-        setReflectiveClearShader(minAlpha: opacity)
+        setReflectiveClearShader(minAlpha: 0.22)
         lightingModel = .physicallyBased
         metalness.contents = 1.0
         roughness.contents = 0.2
