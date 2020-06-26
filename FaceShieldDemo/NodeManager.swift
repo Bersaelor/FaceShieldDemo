@@ -44,7 +44,7 @@ class NodeManager: NSObject {
         updateShieldMaterial()
 
         let lightingEnvironment = sceneView.scene.lightingEnvironment
-        lightingEnvironment.contents = "art.scnassets/cloudy.jpg"
+        lightingEnvironment.contents = "art.scnassets/lightmap.jpeg"
     }
 
     // private

@@ -26,7 +26,7 @@ extension Material {
     
     var reflectiveContent: String {
         switch self {
-        case .blendAddPlexi, .blinnPlexi: return "art.scnassets/cloudy.jpg"
+        case .blendAddPlexi, .blinnPlexi: return "art.scnassets/lightmap.jpeg"
         default: return ""
         }
     }
@@ -86,7 +86,7 @@ extension SCNMaterial {
     }
     
     private func makeReflectivePBR(opacity: CGFloat) {
-        setReflectiveClearShader(minAlpha: 0.22)
+        setReflectiveClearShader(minAlpha: 0.1)
         lightingModel = .physicallyBased
         metalness.contents = 1.0
         roughness.contents = 0.2
