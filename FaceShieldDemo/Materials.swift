@@ -105,7 +105,7 @@ extension SCNMaterial {
 
 vec3 light = _lightingContribution.specular;
 float alpha = max(\(minAlpha), \(reflection) * min(1.0, 0.33 * light.r + 0.33 * light.g + 0.33 * light.b));
-_output.color.rgb *= min(1.0, (1.5 + 2 * \(minAlpha)) * alpha);
+_output.color.rgb = dot(_output.color.rgb, float3(0.212671, 0.715160, 0.072169) * min(1.0, (1.5 + 2 * \(minAlpha)) * alpha));
 _output.color.a = alpha;
 """
         self.shaderModifiers = [.fragment: shaderModifier]
