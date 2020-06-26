@@ -45,6 +45,8 @@ class NodeManager: NSObject {
 
         let lightingEnvironment = sceneView.scene.lightingEnvironment
         lightingEnvironment.contents = "art.scnassets/lightmap.jpeg"
+        
+        setupSpotLight()
     }
 
     // private
@@ -61,6 +63,8 @@ class NodeManager: NSObject {
             faceNode?.addChildNode(mainNode)
         }
     }
+    private let omniLightNode = SCNNode()
+    private let omniLight = SCNLight()
     private lazy var mainNode: SCNNode? = {
         return scene.rootNode.childNode(withName: "FaceShield", recursively: true)
     }()
@@ -75,8 +79,27 @@ class NodeManager: NSObject {
     }()
     private let faceOcclusionNode: SCNNode
     
+    private func setupSpotLight() {
+        omniLight.type = SCNLight.LightType.omni
+        omniLightNode.light = omniLight
+        omniLightNode.position = SCNVector3(0, 3, 0)
+        
+        scene.rootNode.addChildNode(omniLightNode)
+    }
+
+    
     private func updateLight(lightEstimate: ARLightEstimate) {
         scene.lightingEnvironment.intensity = 2 * lightEstimate.ambientIntensity / 1000.0
+        
+        omniLight.temperature = lightEstimate.ambientColorTemperature
+        
+        if let directionalLightEstimate = lightEstimate as? ARDirectionalLightEstimate {
+            let factor: Float = 12
+            omniLight.intensity = CGFloat(1/factor) * directionalLightEstimate.primaryLightIntensity
+            omniLightNode.position = SCNVector3(-factor * directionalLightEstimate.primaryLightDirection.x,
+                                                -factor * directionalLightEstimate.primaryLightDirection.y,
+                                                -factor * directionalLightEstimate.primaryLightDirection.z)
+        }
     }
 }
 
@@ -119,7 +142,7 @@ extension NodeManager: ARSessionDelegate {
             print("Failed to get lightEstimate")
             return
         }
-                
+        
         updateLight(lightEstimate: lightEstimate)
     }
 }
