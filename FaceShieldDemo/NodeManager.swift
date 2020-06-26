@@ -19,6 +19,7 @@ class NodeManager: NSObject {
     var chosenOpacity: CGFloat = 0.85 {
         didSet { updateShieldMaterial() }
     }
+    var handleLightIntensityChange: (CGFloat) -> Void = { _ in }
 
     override init() {
         let device: MTLDevice! = MTLCreateSystemDefaultDevice()
@@ -89,8 +90,9 @@ class NodeManager: NSObject {
 
     
     private func updateLight(lightEstimate: ARLightEstimate) {
-        scene.lightingEnvironment.intensity = 2 * lightEstimate.ambientIntensity / 1000.0
-        
+        scene.lightingEnvironment.intensity = max(0.4, lightEstimate.ambientIntensity / 1000.0)
+        handleLightIntensityChange(scene.lightingEnvironment.intensity)
+
         omniLight.temperature = lightEstimate.ambientColorTemperature
         
         if let directionalLightEstimate = lightEstimate as? ARDirectionalLightEstimate {

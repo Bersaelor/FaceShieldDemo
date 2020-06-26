@@ -30,11 +30,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boG-GC-aXX">
-                                            <rect key="frame" x="0.0" y="15" width="414" height="120"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kS8-Bi-XeB">
+                                            <rect key="frame" x="8" y="8" width="42" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="120" id="bKH-SJ-JlV"/>
+                                                <constraint firstAttribute="height" constant="21" id="mil-QE-WxO"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boG-GC-aXX">
+                                            <rect key="frame" x="0.0" y="29" width="414" height="121"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="BV1-FR-VrT" id="dj6-ay-U2b"/>
                                                 <outlet property="delegate" destination="BV1-FR-VrT" id="Uc2-20-JLQ"/>
@@ -43,8 +49,11 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="boG-GC-aXX" firstAttribute="leading" secondItem="krN-xP-dxI" secondAttribute="leading" id="7iW-VB-SIF"/>
-                                        <constraint firstItem="boG-GC-aXX" firstAttribute="centerY" secondItem="krN-xP-dxI" secondAttribute="centerY" id="bqZ-NZ-Ujg"/>
+                                        <constraint firstAttribute="bottom" secondItem="boG-GC-aXX" secondAttribute="bottom" id="Mee-X6-5F4"/>
+                                        <constraint firstItem="kS8-Bi-XeB" firstAttribute="leading" secondItem="krN-xP-dxI" secondAttribute="leadingMargin" id="cTL-z6-CDv"/>
+                                        <constraint firstItem="kS8-Bi-XeB" firstAttribute="top" secondItem="krN-xP-dxI" secondAttribute="topMargin" id="ifH-na-emt"/>
                                         <constraint firstItem="boG-GC-aXX" firstAttribute="centerX" secondItem="krN-xP-dxI" secondAttribute="centerX" id="mxr-om-ANv"/>
+                                        <constraint firstItem="boG-GC-aXX" firstAttribute="top" secondItem="kS8-Bi-XeB" secondAttribute="bottom" id="nt8-w2-tot"/>
                                     </constraints>
                                 </view>
                                 <constraints>
@@ -69,6 +78,7 @@
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="debugLabel" destination="kS8-Bi-XeB" id="MTy-K0-eLn"/>
                         <outlet property="materialPicker" destination="boG-GC-aXX" id="h5V-dI-myL"/>
                         <outlet property="opacitySlider" destination="FPQ-kj-5cL" id="tPW-Ub-th7"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>

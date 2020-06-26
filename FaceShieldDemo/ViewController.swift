@@ -12,6 +12,7 @@ import ARKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var opacitySlider: UISlider!
     @IBOutlet weak var materialPicker: UIPickerView!
@@ -30,13 +31,18 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        nodeManager.handleLightIntensityChange = { [weak self] newIntensity in
+            let formatter = NumberFormatter()
+            formatter.maximumFractionDigits = 2
+            self?.debugLabel.text = "Light-Intensity: \(formatter.string(for: newIntensity) ?? "?")"
+        }
         
         opacitySlider.value = Float(nodeManager.chosenOpacity)
         materialPicker.selectRow(Material.allCases.firstIndex(of: nodeManager.chosenMaterial)!, inComponent: 0, animated: false)
         
         // Create a session configuration
         let configuration = ARFaceTrackingConfiguration()
-
+        sceneView.automaticallyUpdatesLighting = false
         // Run the view's session
         sceneView.session.run(configuration)
     }
