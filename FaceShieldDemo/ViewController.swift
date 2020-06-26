@@ -31,10 +31,10 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        nodeManager.handleLightIntensityChange = { [weak self] newIntensity in
+        nodeManager.handleLightIntensityChange = { [weak self] rawIntensity, newIntensity in
             let formatter = NumberFormatter()
             formatter.maximumFractionDigits = 2
-            self?.debugLabel.text = "Light-Intensity: \(formatter.string(for: newIntensity) ?? "?")"
+            self?.debugLabel.text = "Light-Intensity: \(formatter.string(for: newIntensity) ?? "?") (\(formatter.string(for: rawIntensity) ?? "?"))"
         }
         
         opacitySlider.value = Float(nodeManager.chosenOpacity)

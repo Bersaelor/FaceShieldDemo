@@ -16,6 +16,7 @@
 		714C527D24A4DBA800F1FD6E /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714C527C24A4DBA800F1FD6E /* NodeManager.swift */; };
 		714C527F24A5402500F1FD6E /* Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714C527E24A5402500F1FD6E /* Materials.swift */; };
 		714C528124A541EF00F1FD6E /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714C528024A541EF00F1FD6E /* UIColor+Hex.swift */; };
+		71E06A4924A6732500204789 /* CubicSpline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E06A4824A6732500204789 /* CubicSpline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		714C527C24A4DBA800F1FD6E /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		714C527E24A5402500F1FD6E /* Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Materials.swift; sourceTree = "<group>"; };
 		714C528024A541EF00F1FD6E /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		71E06A4824A6732500204789 /* CubicSpline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubicSpline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				714C526824A4D3A000F1FD6E /* art.scnassets */,
 				714C526A24A4D3A000F1FD6E /* ViewController.swift */,
 				714C527C24A4DBA800F1FD6E /* NodeManager.swift */,
+				71E06A4824A6732500204789 /* CubicSpline.swift */,
 				714C527E24A5402500F1FD6E /* Materials.swift */,
 				714C528024A541EF00F1FD6E /* UIColor+Hex.swift */,
 				714C526C24A4D3A000F1FD6E /* Main.storyboard */,
@@ -153,6 +156,7 @@
 				714C527D24A4DBA800F1FD6E /* NodeManager.swift in Sources */,
 				714C526724A4D3A000F1FD6E /* AppDelegate.swift in Sources */,
 				714C528124A541EF00F1FD6E /* UIColor+Hex.swift in Sources */,
+				71E06A4924A6732500204789 /* CubicSpline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,7 @@ class NodeManager: NSObject {
     var chosenOpacity: CGFloat = 0.85 {
         didSet { updateShieldMaterial() }
     }
-    var handleLightIntensityChange: (CGFloat) -> Void = { _ in }
+    var handleLightIntensityChange: (CGFloat, CGFloat) -> Void = { _, _ in }
 
     override init() {
         let device: MTLDevice! = MTLCreateSystemDefaultDevice()
@@ -87,16 +87,32 @@ class NodeManager: NSObject {
         
         scene.rootNode.addChildNode(omniLightNode)
     }
-
+    
+    // f'(1) = 1, f(1) = 1, f(1.5) = maxValue, f(0.5) = minValue
+//    private let dampingFunction = CubicSpline(points: [
+//        CubicSpline.ControlPoint(x: 0.1, y: 0.3, d: 0),
+//        CubicSpline.ControlPoint(x: 1, y: 1, d: 1),
+//        CubicSpline.ControlPoint(x: 2, y: 1.8, d: 0)
+//    ])
+    private let dampingFunction = CubicSpline(
+        points: [
+            CubicSpline.Point(x: 0.1, y: 0.3),
+            CubicSpline.Point(x: 1, y: 1),
+            CubicSpline.Point(x: 2, y: 1.8),
+        ],
+        tangentAtStart: 0,
+        tangentAtEnd: 1
+    )
     
     private func updateLight(lightEstimate: ARLightEstimate) {
-        scene.lightingEnvironment.intensity = max(0.4, lightEstimate.ambientIntensity / 1000.0)
-        handleLightIntensityChange(scene.lightingEnvironment.intensity)
+        let lightInput = lightEstimate.ambientIntensity / 1000.0
+        scene.lightingEnvironment.intensity = CGFloat(dampingFunction.f(x: Double(lightInput)))
+        handleLightIntensityChange(lightInput, scene.lightingEnvironment.intensity)
 
         omniLight.temperature = lightEstimate.ambientColorTemperature
         
         if let directionalLightEstimate = lightEstimate as? ARDirectionalLightEstimate {
-            let factor: Float = 12
+            let factor: Float = 20
             omniLight.intensity = CGFloat(1/factor) * directionalLightEstimate.primaryLightIntensity
             omniLightNode.position = SCNVector3(-factor * directionalLightEstimate.primaryLightDirection.x,
                                                 -factor * directionalLightEstimate.primaryLightDirection.y,
