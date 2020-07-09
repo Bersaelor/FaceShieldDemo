@@ -91,8 +91,8 @@ class NodeManager: NSObject {
     
     // private let dampingFunction: (Double) -> Double
     private let dampingFunction = Spline(
-        arguments: [0.1, 0.4, 1, 2,   2.5],
-        values:    [0.3, 0.6, 1, 1.6, 2],
+        arguments: [0.1, 0.4,  1,    2,   2.5],
+        values:    [0.4, 0.65, 1.15, 1.6, 2],
         boundaryCondition: .fixedTangentials(dAtStart: 0, dAtEnd: 0.0)
     ).f
     

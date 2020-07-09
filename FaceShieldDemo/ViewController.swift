@@ -79,13 +79,11 @@ class ViewController: UIViewController {
         var estimatedLightPoints = [CGPoint]()
         var dampenedLightPoints = [CGPoint]()
 
-        print("updateGraphView with \(lightDataPoints.count) points")
-
         let now = Date()
         for dataP in lightDataPoints {
             let x = CGFloat(1 - (now.timeIntervalSince(dataP.2) / maxStatisticsAge))
             estimatedLightPoints.append(CGPoint(x: x, y: dataP.0))
-            dampenedLightPoints.append(CGPoint(x: x, y: dataP.0))
+            dampenedLightPoints.append(CGPoint(x: x, y: dataP.1))
         }
                 
         graphView.lines = [

@@ -153,8 +153,6 @@ class GraphView: UIView {
     
     func drawLine(points: [CGPoint], color: UIColor, in context: CGContext) {
         guard !points.isEmpty else { return }
-
-        print("Drawing line with \(points.count) points, last point: \(points.last!)")
         
         color.setStroke()
 
