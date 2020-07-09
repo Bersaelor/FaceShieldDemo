@@ -1,0 +1,170 @@
+//
+//  GraphView.swift
+//  SplineTestApp
+//
+//  Copyright (c) 2020 mathHeartCode UG(haftungsbeschränkt) <konrad@mathheartcode.com>
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+
+import UIKit
+
+struct Axis: Equatable {
+    let label: String
+}
+
+class GraphView: UIView {
+    
+    var axis: [Axis] = [] {
+        didSet {
+            guard oldValue != axis else { return }
+            setNeedsDisplay()
+        }
+    }
+    
+    var points: [(String, CGPoint)] = []
+
+    var axisColor = UIColor.gray { didSet { setNeedsDisplay() } }
+    var pointColor = UIColor.purple { didSet { setNeedsDisplay() } }
+    var xRange: Range<CGFloat> = 0 ..< 1
+    var yRange: Range<CGFloat> = 0 ..< 1
+    var insets = UIEdgeInsets.zero
+    
+    var lines: [(UIColor, [CGPoint])] = [] {
+        didSet { setNeedsDisplay() }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
+    
+    var drawSize: CGSize {
+        let size = bounds.size
+
+        return CGSize(
+            width: size.width - (insets.left + insets.right),
+            height: size.height - (insets.top + insets.bottom)
+        )
+    }
+        
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let size = bounds.size
+
+        draw(axis: axis, in: context, size: size)
+        
+        draw(points: points.map { return ($0.0, self.convert(point: $0.1)) }, in: context, size: size)
+
+        for line in lines {
+            drawLine(points: line.1.map(self.convert(point:)), color: line.0, in: context)
+        }
+    }
+    
+    private func convert(point: CGPoint) -> CGPoint {
+        let xInRange = (point.x - xRange.lowerBound) / (xRange.upperBound - xRange.lowerBound)
+        let yInRange = (point.y - yRange.lowerBound) / (yRange.upperBound - yRange.lowerBound)
+        // natural coordinate system goes up, iOS coo system goes down
+        // so invert y
+        return CGPoint(
+            x: insets.left + xInRange * drawSize.width,
+            y: insets.right + (1 - yInRange) * drawSize.height
+        )
+    }
+    
+    func draw(axis: [Axis], in context: CGContext, size: CGSize) {
+        guard axis.count == 2 else { return }
+        
+        axisColor.setStroke()
+        
+        let textAttributes = [
+            NSAttributedString.Key.foregroundColor: axisColor,
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)
+        ]
+
+        let bottomLeft = CGPoint(x: insets.left, y: size.height - insets.bottom)
+        
+        // draw horizontal axis
+        let bottomRight = CGPoint(x: size.width - insets.right, y: size.height - insets.bottom)
+        context.move(to: bottomLeft)
+        context.addLine(to: bottomRight)
+        context.setLineWidth(1.0)
+        context.strokePath()
+        
+        (axis[0].label as NSString).draw(
+            at: CGPoint(x: bottomRight.x - 12, y: bottomRight.y - 20),
+            withAttributes: textAttributes)
+        
+        // draw vertical axis
+        let topLeft = CGPoint(x: insets.left, y: insets.top)
+        context.move(to: bottomLeft)
+        context.addLine(to: topLeft)
+        context.setLineWidth(1.0)
+        context.strokePath()
+        
+        (axis[1].label as NSString).draw(
+            at: CGPoint(x: topLeft.x + 4, y: topLeft.y),
+            withAttributes: textAttributes)
+    }
+
+    func draw(points: [(String, CGPoint)], in context: CGContext, size: CGSize) {
+        let radius: CGFloat = 3
+        
+        pointColor.setStroke()
+        
+        let textAttributes = [
+            NSAttributedString.Key.foregroundColor: pointColor,
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)
+        ]
+        
+        for point in points {
+            let origin = CGPoint(x: point.1.x - radius, y: point.1.y - radius)
+            
+            let ellipse = CGRect(
+                origin: origin,
+                size: CGSize(width: 2*radius, height: 2*radius)
+            )
+            context.strokeEllipse(in: ellipse)
+            
+            (point.0 as NSString).draw(
+                at: CGPoint(x: origin.x + 2, y: origin.y + 2),
+                withAttributes: textAttributes)
+        }
+    }
+    
+    func drawLine(points: [CGPoint], color: UIColor, in context: CGContext) {
+        guard !points.isEmpty else { return }
+
+        print("Drawing line with \(points.count) points, last point: \(points.last!)")
+        
+        color.setStroke()
+
+        context.move(to: points[0])
+        
+        for point in points.dropFirst() {
+            context.addLine(to: point)
+        }
+        context.setLineWidth(1.0)
+        context.strokePath()
+    }
+
+}
