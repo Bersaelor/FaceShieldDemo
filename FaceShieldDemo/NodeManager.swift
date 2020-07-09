@@ -8,6 +8,7 @@
 
 import ARKit
 import SceneKit
+import SwiftSplines
 
 class NodeManager: NSObject {
     
@@ -88,25 +89,16 @@ class NodeManager: NSObject {
         scene.rootNode.addChildNode(omniLightNode)
     }
     
-    // f'(1) = 1, f(1) = 1, f(1.5) = maxValue, f(0.5) = minValue
-//    private let dampingFunction = CubicSpline(points: [
-//        CubicSpline.ControlPoint(x: 0.1, y: 0.3, d: 0),
-//        CubicSpline.ControlPoint(x: 1, y: 1, d: 1),
-//        CubicSpline.ControlPoint(x: 2, y: 1.8, d: 0)
-//    ])
-    private let dampingFunction = CubicSpline(
-        points: [
-            CubicSpline.Point(x: 0.1, y: 0.3),
-            CubicSpline.Point(x: 1, y: 1),
-            CubicSpline.Point(x: 2, y: 1.8),
-        ],
-        tangentAtStart: 0,
-        tangentAtEnd: 1
-    )
+    // private let dampingFunction: (Double) -> Double
+    private let dampingFunction = Spline(
+        arguments: [0.1, 0.4, 1, 2,   2.5],
+        values:    [0.3, 0.6, 1, 1.6, 2],
+        boundaryCondition: .fixedTangentials(dAtStart: 0, dAtEnd: 0.0)
+    ).f
     
     private func updateLight(lightEstimate: ARLightEstimate) {
         let lightInput = lightEstimate.ambientIntensity / 1000.0
-        scene.lightingEnvironment.intensity = CGFloat(dampingFunction.f(x: Double(lightInput)))
+        scene.lightingEnvironment.intensity = CGFloat(dampingFunction(Double(lightInput)))
         handleLightIntensityChange(lightInput, scene.lightingEnvironment.intensity)
 
         omniLight.temperature = lightEstimate.ambientColorTemperature

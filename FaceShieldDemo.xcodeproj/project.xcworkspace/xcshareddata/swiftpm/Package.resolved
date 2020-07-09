@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftSplines",
+        "repositoryURL": "https://github.com/Bersaelor/SwiftSplines.git",
+        "state": {
+          "branch": null,
+          "revision": "341d4d3e3447bbf158d017e9c206c4970b9ffe33",
+          "version": "0.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
