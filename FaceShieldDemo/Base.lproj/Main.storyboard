@@ -19,28 +19,33 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </arscnView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FPQ-kj-5cL">
-                                <rect key="frame" x="19" y="706" width="376" height="31"/>
+                                <rect key="frame" x="19" y="676" width="376" height="31"/>
                                 <connections>
                                     <action selector="sliderChangedValue:" destination="BV1-FR-VrT" eventType="valueChanged" id="uS2-y6-Hk7"/>
                                 </connections>
                             </slider>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUb-xM-4hG">
-                                <rect key="frame" x="0.0" y="746" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="716" width="414" height="180"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="krN-xP-dxI">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kS8-Bi-XeB">
-                                            <rect key="frame" x="8" y="8" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kS8-Bi-XeB">
+                                            <rect key="frame" x="314" y="0.0" width="100" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="mil-QE-WxO"/>
+                                                <constraint firstAttribute="height" constant="40" id="mil-QE-WxO"/>
+                                                <constraint firstAttribute="width" constant="100" id="sFQ-dj-IvX"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WyJ-bS-0ev" customClass="GraphView" customModule="FaceShieldDemo" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="314" height="40"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
                                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boG-GC-aXX">
-                                            <rect key="frame" x="0.0" y="29" width="414" height="121"/>
+                                            <rect key="frame" x="0.0" y="40" width="414" height="140"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="BV1-FR-VrT" id="dj6-ay-U2b"/>
                                                 <outlet property="delegate" destination="BV1-FR-VrT" id="Uc2-20-JLQ"/>
@@ -48,16 +53,20 @@
                                         </pickerView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="WyJ-bS-0ev" firstAttribute="trailing" secondItem="kS8-Bi-XeB" secondAttribute="leading" id="38j-TW-Goa"/>
+                                        <constraint firstItem="WyJ-bS-0ev" firstAttribute="top" secondItem="kS8-Bi-XeB" secondAttribute="top" id="6Ft-lh-e3b"/>
                                         <constraint firstItem="boG-GC-aXX" firstAttribute="leading" secondItem="krN-xP-dxI" secondAttribute="leading" id="7iW-VB-SIF"/>
+                                        <constraint firstAttribute="trailing" secondItem="kS8-Bi-XeB" secondAttribute="trailing" id="GlC-zT-kRi"/>
                                         <constraint firstAttribute="bottom" secondItem="boG-GC-aXX" secondAttribute="bottom" id="Mee-X6-5F4"/>
-                                        <constraint firstItem="kS8-Bi-XeB" firstAttribute="leading" secondItem="krN-xP-dxI" secondAttribute="leadingMargin" id="cTL-z6-CDv"/>
-                                        <constraint firstItem="kS8-Bi-XeB" firstAttribute="top" secondItem="krN-xP-dxI" secondAttribute="topMargin" id="ifH-na-emt"/>
+                                        <constraint firstItem="WyJ-bS-0ev" firstAttribute="bottom" secondItem="boG-GC-aXX" secondAttribute="top" id="ajk-8N-Z4g"/>
+                                        <constraint firstItem="kS8-Bi-XeB" firstAttribute="top" secondItem="krN-xP-dxI" secondAttribute="top" id="ifH-na-emt"/>
+                                        <constraint firstItem="WyJ-bS-0ev" firstAttribute="leading" secondItem="krN-xP-dxI" secondAttribute="leading" id="jZq-37-oiW"/>
                                         <constraint firstItem="boG-GC-aXX" firstAttribute="centerX" secondItem="krN-xP-dxI" secondAttribute="centerX" id="mxr-om-ANv"/>
                                         <constraint firstItem="boG-GC-aXX" firstAttribute="top" secondItem="kS8-Bi-XeB" secondAttribute="bottom" id="nt8-w2-tot"/>
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="Fvc-Mj-kmq"/>
+                                    <constraint firstAttribute="height" constant="180" id="Fvc-Mj-kmq"/>
                                 </constraints>
                                 <blurEffect style="systemUltraThinMaterial"/>
                             </visualEffectView>
@@ -79,6 +88,7 @@
                     </view>
                     <connections>
                         <outlet property="debugLabel" destination="kS8-Bi-XeB" id="MTy-K0-eLn"/>
+                        <outlet property="graphView" destination="WyJ-bS-0ev" id="kdV-ec-nAD"/>
                         <outlet property="materialPicker" destination="boG-GC-aXX" id="h5V-dI-myL"/>
                         <outlet property="opacitySlider" destination="FPQ-kj-5cL" id="tPW-Ub-th7"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>

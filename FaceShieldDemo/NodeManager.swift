@@ -8,6 +8,7 @@
 
 import ARKit
 import SceneKit
+import SwiftSplines
 
 class NodeManager: NSObject {
     
@@ -19,7 +20,7 @@ class NodeManager: NSObject {
     var chosenOpacity: CGFloat = 0.85 {
         didSet { updateShieldMaterial() }
     }
-    var handleLightIntensityChange: (CGFloat) -> Void = { _ in }
+    var handleLightIntensityChange: (CGFloat, CGFloat) -> Void = { _, _ in }
 
     override init() {
         let device: MTLDevice! = MTLCreateSystemDefaultDevice()
@@ -87,16 +88,23 @@ class NodeManager: NSObject {
         
         scene.rootNode.addChildNode(omniLightNode)
     }
-
+    
+    // private let dampingFunction: (Double) -> Double
+    private let dampingFunction = Spline(
+        arguments: [0.1, 0.4,  1,    2,   2.5],
+        values:    [0.4, 0.65, 1.15, 1.6, 2],
+        boundaryCondition: .fixedTangentials(dAtStart: 0, dAtEnd: 0.0)
+    ).f
     
     private func updateLight(lightEstimate: ARLightEstimate) {
-        scene.lightingEnvironment.intensity = max(0.4, lightEstimate.ambientIntensity / 1000.0)
-        handleLightIntensityChange(scene.lightingEnvironment.intensity)
+        let lightInput = lightEstimate.ambientIntensity / 1000.0
+        scene.lightingEnvironment.intensity = CGFloat(dampingFunction(Double(lightInput)))
+        handleLightIntensityChange(lightInput, scene.lightingEnvironment.intensity)
 
         omniLight.temperature = lightEstimate.ambientColorTemperature
         
         if let directionalLightEstimate = lightEstimate as? ARDirectionalLightEstimate {
-            let factor: Float = 12
+            let factor: Float = 20
             omniLight.intensity = CGFloat(1/factor) * directionalLightEstimate.primaryLightIntensity
             omniLightNode.position = SCNVector3(-factor * directionalLightEstimate.primaryLightDirection.x,
                                                 -factor * directionalLightEstimate.primaryLightDirection.y,

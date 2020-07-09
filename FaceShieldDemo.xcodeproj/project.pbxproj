@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		714C527D24A4DBA800F1FD6E /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714C527C24A4DBA800F1FD6E /* NodeManager.swift */; };
 		714C527F24A5402500F1FD6E /* Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714C527E24A5402500F1FD6E /* Materials.swift */; };
 		714C528124A541EF00F1FD6E /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714C528024A541EF00F1FD6E /* UIColor+Hex.swift */; };
+		7163D98D24B751B000FC0011 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7163D98C24B751B000FC0011 /* GraphView.swift */; };
+		717F7E9024B7204E00733246 /* SwiftSplines in Frameworks */ = {isa = PBXBuildFile; productRef = 717F7E8F24B7204E00733246 /* SwiftSplines */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,7 @@
 		714C527C24A4DBA800F1FD6E /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		714C527E24A5402500F1FD6E /* Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Materials.swift; sourceTree = "<group>"; };
 		714C528024A541EF00F1FD6E /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		7163D98C24B751B000FC0011 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				717F7E9024B7204E00733246 /* SwiftSplines in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +72,7 @@
 				714C527C24A4DBA800F1FD6E /* NodeManager.swift */,
 				714C527E24A5402500F1FD6E /* Materials.swift */,
 				714C528024A541EF00F1FD6E /* UIColor+Hex.swift */,
+				7163D98C24B751B000FC0011 /* GraphView.swift */,
 				714C526C24A4D3A000F1FD6E /* Main.storyboard */,
 				714C526F24A4D3A100F1FD6E /* Assets.xcassets */,
 				714C527124A4D3A100F1FD6E /* LaunchScreen.storyboard */,
@@ -92,6 +97,9 @@
 			dependencies = (
 			);
 			name = FaceShieldDemo;
+			packageProductDependencies = (
+				717F7E8F24B7204E00733246 /* SwiftSplines */,
+			);
 			productName = FaceShieldDemo;
 			productReference = 714C526324A4D3A000F1FD6E /* FaceShieldDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +128,9 @@
 				Base,
 			);
 			mainGroup = 714C525A24A4D3A000F1FD6E;
+			packageReferences = (
+				717F7E8E24B7204E00733246 /* XCRemoteSwiftPackageReference "SwiftSplines" */,
+			);
 			productRefGroup = 714C526424A4D3A000F1FD6E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -153,6 +164,7 @@
 				714C527D24A4DBA800F1FD6E /* NodeManager.swift in Sources */,
 				714C526724A4D3A000F1FD6E /* AppDelegate.swift in Sources */,
 				714C528124A541EF00F1FD6E /* UIColor+Hex.swift in Sources */,
+				7163D98D24B751B000FC0011 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +362,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		717F7E8E24B7204E00733246 /* XCRemoteSwiftPackageReference "SwiftSplines" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Bersaelor/SwiftSplines.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		717F7E8F24B7204E00733246 /* SwiftSplines */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 717F7E8E24B7204E00733246 /* XCRemoteSwiftPackageReference "SwiftSplines" */;
+			productName = SwiftSplines;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 714C525B24A4D3A000F1FD6E /* Project object */;
 }
